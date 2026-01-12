@@ -13,4 +13,5 @@
 - Door Lock Cluster の Lock/Unlock 操作用ユースケースを `internal/usecase/lock.go` に追加し、計画リストの6を完了に更新。
 - 計画リストの5と6について機能/全体/構成/デバッグ/進捗の各確認を行い、制作完了状態を維持。
 - 電池・到達性の定期取得に向けて metric reader（Power Source/Reachability）と poll/watch ユースケースを追加し、計画リストの7を完了に更新。
+- コミッショニング対応としてオンボーディングペイロード/運用クレデンシャルのインポート状態を保持する `internal/commission/state.go` を追加し、計画リストの8を完了に更新。
 - 計画リストの7について機能/全体/構成/デバッグ/進捗の各確認を行い、制作完了状態を維持。
