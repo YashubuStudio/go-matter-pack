@@ -10,3 +10,4 @@
 - 計画リストの3と4について機能/全体/構成/デバッグ/進捗の各確認を行い、チェック状態を反映。
 - 計画リストの3と4を制作完了状態として反映。
 - 安定選択のために UniqueID 主キーの台帳構造とラベル固定用の処理を `internal/store/registry.go` に追加し、計画リストの5を完了に更新。
+- Door Lock Cluster の Lock/Unlock 操作用ユースケースを `internal/usecase/lock.go` に追加し、計画リストの6を完了に更新。
