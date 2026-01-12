@@ -12,7 +12,7 @@
 
  [〇] 6. Lock/Unlock操作の実装（Door Lock Cluster）
 
- [ ] 7. 電池・到達性の定期取得（poll/watch）
+ [〇] 7. 電池・到達性の定期取得（poll/watch）
 
  [ ] 8. コミッショニング対応（importまたはPASE/CASE実装）
 
