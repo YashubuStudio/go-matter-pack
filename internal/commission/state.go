@@ -37,10 +37,21 @@ type Bundle struct {
 	ImportedAt       time.Time `json:"imported_at"`
 }
 
+// ResultRecord stores the last successful commissioning result.
+type ResultRecord struct {
+	NodeID             uint64    `json:"node_id"`
+	VendorID           uint16    `json:"vendor_id"`
+	ProductID          uint16    `json:"product_id"`
+	Device             string    `json:"device,omitempty"`
+	CommissionedAt     time.Time `json:"commissioned_at"`
+	PayloadFingerprint string    `json:"payload_fingerprint,omitempty"`
+}
+
 // State keeps commissioning-related data for a single hub.
 type State struct {
 	Payload *PayloadRecord `json:"payload,omitempty"`
 	Bundle  *Bundle        `json:"bundle,omitempty"`
+	Result  *ResultRecord  `json:"result,omitempty"`
 }
 
 // LoadState loads commissioning state from the store.
@@ -57,37 +68,44 @@ func SaveState(ctx context.Context, s store.Store, state State) error {
 	return s.Save(ctx, &state)
 }
 
-// ImportPayload records onboarding payload details (QR or manual pairing code).
-func ImportPayload(ctx context.Context, s store.Store, nodeID uint64, payload string) (State, error) {
+// ParseOnboardingPayload parses a QR or manual pairing payload and reports the payload type.
+func ParseOnboardingPayload(payload string) (encoding.OnboardingPayload, bool, error) {
 	payload = strings.TrimSpace(payload)
 	if payload == "" {
-		return State{}, fmt.Errorf("payload is required")
+		return nil, false, fmt.Errorf("payload is required")
 	}
-
-	record := PayloadRecord{NodeID: nodeID, ImportedAt: time.Now()}
 	if strings.HasPrefix(payload, encoding.QRPayloadPrefix) {
 		qrPayload, err := encoding.NewQRPayloadFromString(payload)
 		if err != nil {
-			return State{}, err
+			return nil, false, err
 		}
-		record.QRCode = payload
-		record.VendorID = uint16(qrPayload.VendorID())
-		record.ProductID = uint16(qrPayload.ProductID())
-		record.CommissioningFlow = qrPayload.CommissioningFlow().String()
-		record.Discriminator = uint16(qrPayload.Discriminator())
-		record.Passcode = uint32(qrPayload.Passcode())
-	} else {
-		pairingCode, err := encoding.NewPairingCodeFromString(payload)
-		if err != nil {
-			return State{}, err
-		}
-		record.PairingCode = payload
-		record.VendorID = uint16(pairingCode.VendorID())
-		record.ProductID = uint16(pairingCode.ProductID())
-		record.CommissioningFlow = pairingCode.CommissioningFlow().String()
-		record.Discriminator = uint16(pairingCode.Discriminator())
-		record.Passcode = uint32(pairingCode.Passcode())
+		return qrPayload, true, nil
 	}
+	manualPayload, err := encoding.NewPairingCodeFromString(payload)
+	if err != nil {
+		return nil, false, err
+	}
+	return manualPayload, false, nil
+}
+
+// ImportPayload records onboarding payload details (QR or manual pairing code).
+func ImportPayload(ctx context.Context, s store.Store, nodeID uint64, payload string) (State, error) {
+	parsed, isQR, err := ParseOnboardingPayload(payload)
+	if err != nil {
+		return State{}, err
+	}
+
+	record := PayloadRecord{NodeID: nodeID, ImportedAt: time.Now()}
+	if isQR {
+		record.QRCode = strings.TrimSpace(payload)
+	} else {
+		record.PairingCode = strings.TrimSpace(payload)
+	}
+	record.VendorID = uint16(parsed.VendorID())
+	record.ProductID = uint16(parsed.ProductID())
+	record.CommissioningFlow = parsed.CommissioningFlow().String()
+	record.Discriminator = uint16(parsed.Discriminator())
+	record.Passcode = uint32(parsed.Passcode())
 
 	record.PayloadFingerprint = fingerprintPayload(record)
 
@@ -112,6 +130,22 @@ func ImportBundle(ctx context.Context, s store.Store, bundle Bundle) (State, err
 		return State{}, err
 	}
 	state.Bundle = &bundle
+	if err := SaveState(ctx, s, state); err != nil {
+		return State{}, err
+	}
+	return state, nil
+}
+
+// UpdateResult records the result of a successful commissioning.
+func UpdateResult(ctx context.Context, s store.Store, result ResultRecord) (State, error) {
+	if result.CommissionedAt.IsZero() {
+		result.CommissionedAt = time.Now()
+	}
+	state, err := LoadState(ctx, s)
+	if err != nil {
+		return State{}, err
+	}
+	state.Result = &result
 	if err := SaveState(ctx, s, state); err != nil {
 		return State{}, err
 	}

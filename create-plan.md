@@ -14,7 +14,7 @@
 
  [〇] 7. 電池・到達性の定期取得（poll/watch）
 
- [★] 8. コミッショニング対応（importまたはPASE/CASE実装）
+ [〇] 8. コミッショニング対応（importまたはPASE/CASE実装）
 
  [ ] 9. パッケージ運用整備（systemd/INSTALL）
 
