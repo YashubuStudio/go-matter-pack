@@ -31,6 +31,15 @@ func NewRegistry() *Registry {
 	return &Registry{Devices: make(map[string]DeviceRecord)}
 }
 
+// Find returns a device record by UniqueID.
+func (r *Registry) Find(uniqueID string) (DeviceRecord, bool) {
+	if r == nil || r.Devices == nil {
+		return DeviceRecord{}, false
+	}
+	record, ok := r.Devices[uniqueID]
+	return record, ok
+}
+
 // ApplyScan updates the registry using the latest bridged device scan.
 func (r *Registry) ApplyScan(now time.Time, nodeID uint64, devices []mattermodel.BridgedDevice) {
 	if r.Devices == nil {
