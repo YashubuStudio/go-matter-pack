@@ -1,3 +1,15 @@
+# 計画リスト
+
+1. プロジェクト方針の確定（実行モード/保存先/運用方針）
+2. 内部モジュール分割（app/store/log）
+3. Matter運用接続の抽象化（Controllerインターフェース）
+4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
+5. 安定選択の実現（UniqueID主キー＋ラベル固定）
+6. Lock/Unlock操作の実装（Door Lock Cluster）
+7. 電池・到達性の定期取得（poll/watch）
+8. コミッショニング対応（importまたはPASE/CASE実装）
+9. パッケージ運用整備（systemd/INSTALL）
+
 # 追加仕様（あなたの要件を “壊れない形” に落とす）
 
 以下を満たすと「番号変更/再登録で困る」問題がほぼ潰せます。
