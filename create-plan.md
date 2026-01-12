@@ -4,7 +4,7 @@
 
  [〇] 2. 内部モジュール分割（app/store/log）
 
- [ ] 3. Matter運用接続の抽象化（Controllerインターフェース）
+ [〇] 3. Matter運用接続の抽象化（Controllerインターフェース）
 
  [ ] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
 
@@ -27,7 +27,7 @@
 
  [〇] 2. 内部モジュール分割（app/store/log）
 
- [ ] 3. Matter運用接続の抽象化（Controllerインターフェース）
+ [〇] 3. Matter運用接続の抽象化（Controllerインターフェース）
 
  [ ] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
 

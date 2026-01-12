@@ -5,3 +5,4 @@
 - プロジェクト方針（実行モード/保存先/運用方針）を `doc/architecture.md` に明文化し、計画リストの1を完了に更新。
 - 内部モジュール分割のために `internal/app`、`internal/store`、`internal/log` を追加し、計画リストの2を完了に更新。
 - 計画リストの2について機能/全体/構成/デバッグ/進捗の各確認を行い、完了状態を反映。
+- Matter運用接続の抽象化として `internal/matterctrl/controller.go` を追加し、計画リストの3を完了に更新。
