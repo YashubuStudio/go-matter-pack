@@ -9,3 +9,4 @@
 - ブリッジ子端末の列挙向けに `internal/mattermodel` を追加し、PartsList から UniqueID/NodeLabel/Reachable を取得するスキャン処理を整備したうえで、計画リストの4を完了に更新。
 - 計画リストの3と4について機能/全体/構成/デバッグ/進捗の各確認を行い、チェック状態を反映。
 - 計画リストの3と4を制作完了状態として反映。
+- 安定選択のために UniqueID 主キーの台帳構造とラベル固定用の処理を `internal/store/registry.go` に追加し、計画リストの5を完了に更新。
