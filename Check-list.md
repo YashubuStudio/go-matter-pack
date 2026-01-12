@@ -6,3 +6,4 @@
 - 内部モジュール分割のために `internal/app`、`internal/store`、`internal/log` を追加し、計画リストの2を完了に更新。
 - 計画リストの2について機能/全体/構成/デバッグ/進捗の各確認を行い、完了状態を反映。
 - Matter運用接続の抽象化として `internal/matterctrl/controller.go` を追加し、計画リストの3を完了に更新。
+- ブリッジ子端末の列挙向けに `internal/mattermodel` を追加し、PartsList から UniqueID/NodeLabel/Reachable を取得するスキャン処理を整備したうえで、計画リストの4を完了に更新。

@@ -6,7 +6,7 @@
 
  [〇] 3. Matter運用接続の抽象化（Controllerインターフェース）
 
- [ ] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
+ [〇] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
 
  [ ] 5. 安定選択の実現（UniqueID主キー＋ラベル固定）
 
@@ -29,7 +29,7 @@
 
  [〇] 3. Matter運用接続の抽象化（Controllerインターフェース）
 
- [ ] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
+ [〇] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
 
  [ ] 5. 安定選択の実現（UniqueID主キー＋ラベル固定）
 
