@@ -8,7 +8,7 @@
 
  [〇] 4. ブリッジ子端末の列挙（PartsList→UniqueID/NodeLabel/Reachable）
 
- [ ] 5. 安定選択の実現（UniqueID主キー＋ラベル固定）
+ [〇] 5. 安定選択の実現（UniqueID主キー＋ラベル固定）
 
  [ ] 6. Lock/Unlock操作の実装（Door Lock Cluster）
 
