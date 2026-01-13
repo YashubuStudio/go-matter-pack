@@ -44,6 +44,40 @@ Matter はスマートホームおよび IoT（Internet of Things）デバイス
 - インストール
   - [INSTALL](doc/INSTALL.md)
 
+## パッケージ利用
+
+`go-matter` は Go モジュールとしてアプリケーションに組み込めます。
+
+```bash
+go get github.com/cybergarage/go-matter
+```
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/cybergarage/go-matter/matter"
+)
+
+func main() {
+	commissioner := matter.NewCommissioner()
+	query := matter.NewQuery()
+
+	devices, err := commissioner.Discover(context.Background(), query)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf("discovered %d devices", len(devices))
+}
+```
+
+> **注記**
+> 本プロジェクトは進行中のため、API は今後変更される可能性があります。
+
 
 ## 参考資料
 

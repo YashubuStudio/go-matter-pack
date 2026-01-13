@@ -42,6 +42,40 @@ Matter is an open-source connectivity standard for smart home and IoT (Internet 
 - Installation
   - [INSTALL](doc/INSTALL.md)
 
+## Package Usage
+
+You can consume `go-matter` as a Go module in your own applications.
+
+```bash
+go get github.com/cybergarage/go-matter
+```
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+
+	"github.com/cybergarage/go-matter/matter"
+)
+
+func main() {
+	commissioner := matter.NewCommissioner()
+	query := matter.NewQuery()
+
+	devices, err := commissioner.Discover(context.Background(), query)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf("discovered %d devices", len(devices))
+}
+```
+
+> **Note**
+> The API is evolving, so expect changes while the project is still in progress.
+
 
 ## References
 
