@@ -3,8 +3,8 @@ package metrics
 import (
 	"context"
 
-	"github.com/cybergarage/go-matter-pack/internal/matterctrl"
-	"github.com/cybergarage/go-matter-pack/internal/mattermodel"
+	"github.com/cybergarage/go-matter/internal/matterctrl"
+	"github.com/cybergarage/go-matter/internal/mattermodel"
 )
 
 // MetricReader describes a plugin that reads metrics from a bridged device.

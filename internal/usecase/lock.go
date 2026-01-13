@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/cybergarage/go-matter-pack/internal/matterctrl"
-	"github.com/cybergarage/go-matter-pack/internal/store"
+	"github.com/cybergarage/go-matter/internal/matterctrl"
+	"github.com/cybergarage/go-matter/internal/store"
 )
 
 const (

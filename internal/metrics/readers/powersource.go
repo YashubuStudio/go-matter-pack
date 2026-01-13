@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/cybergarage/go-matter-pack/internal/matterctrl"
-	"github.com/cybergarage/go-matter-pack/internal/mattermodel"
-	"github.com/cybergarage/go-matter-pack/internal/metrics"
+	"github.com/cybergarage/go-matter/internal/matterctrl"
+	"github.com/cybergarage/go-matter/internal/mattermodel"
+	"github.com/cybergarage/go-matter/internal/metrics"
 )
 
 const (
