@@ -15,18 +15,43 @@
 package mdns
 
 import (
+	"context"
 	"testing"
+	"time"
 
+	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-matter/matter/mdns"
 )
 
 func TestDiscoverer(t *testing.T) {
+	log.SetSharedLogger(log.NewStdoutLogger(log.LevelInfo))
+
 	disc := mdns.NewDiscoverer()
 
 	err := disc.Start()
 	if err != nil {
 		t.Error(err)
 		return
+	}
+
+	query := mdns.NewQuery(
+		mdns.WithQueryService(mdns.CommissionableNodeService),
+	)
+
+	ctx, cancel := context.WithDeadline(
+		context.Background(),
+		time.Now().Add(1*time.Second),
+	)
+	defer cancel()
+
+	nodes, err := disc.Search(ctx, query)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	for _, node := range nodes {
+		log.Infof("Discovered Node: %+v", node)
 	}
 
 	err = disc.Stop()
