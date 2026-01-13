@@ -9,10 +9,10 @@ import (
 	"sort"
 	"time"
 
-	"github.com/cybergarage/go-matter-pack/internal/matterctrl"
-	"github.com/cybergarage/go-matter-pack/internal/mattermodel"
-	"github.com/cybergarage/go-matter-pack/internal/metrics"
-	"github.com/cybergarage/go-matter-pack/internal/store"
+	"github.com/cybergarage/go-matter/internal/matterctrl"
+	"github.com/cybergarage/go-matter/internal/mattermodel"
+	"github.com/cybergarage/go-matter/internal/metrics"
+	"github.com/cybergarage/go-matter/internal/store"
 )
 
 // OutputFormat represents the serialized output format for poll results.

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cybergarage/go-matter-pack/internal/store"
+	"github.com/cybergarage/go-matter/internal/store"
 	"github.com/cybergarage/go-matter/matter/encoding"
 )
 

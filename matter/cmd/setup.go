@@ -21,9 +21,9 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter-pack/internal/app"
-	"github.com/cybergarage/go-matter-pack/internal/store"
-	"github.com/cybergarage/go-matter-pack/internal/usecase"
+	"github.com/cybergarage/go-matter/internal/app"
+	"github.com/cybergarage/go-matter/internal/store"
+	"github.com/cybergarage/go-matter/internal/usecase"
 	"github.com/spf13/cobra"
 )
 
