@@ -41,6 +41,8 @@ Matter はスマートホームおよび IoT（Internet of Things）デバイス
 
 - Operation
   - [matterctl](doc/matterctl.md)
+- インストール
+  - [INSTALL](doc/INSTALL.md)
 
 
 ## 参考資料
