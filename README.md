@@ -39,6 +39,8 @@ Matter is an open-source connectivity standard for smart home and IoT (Internet 
 
 - Operation
   - [matterctl](doc/matterctl.md)
+- Installation
+  - [INSTALL](doc/INSTALL.md)
 
 
 ## References
