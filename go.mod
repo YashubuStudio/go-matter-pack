@@ -1,11 +1,11 @@
 module github.com/cybergarage/go-matter
 
-go 1.25
+go 1.25.5
 
 require (
 	github.com/cybergarage/go-ble v0.0.0-20250918144852-4a99b3ec9970
 	github.com/cybergarage/go-logger v1.3.11
-	github.com/cybergarage/go-mdns v0.0.0-20251214065712-090f0440eecd
+	github.com/cybergarage/go-mdns v0.0.0-00010101000000-000000000000
 	github.com/cybergarage/go-safecast v1.3.4
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/viper v1.21.0
@@ -41,3 +41,9 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	tinygo.org/x/bluetooth v0.13.0 // indirect
 )
+
+replace github.com/cybergarage/go-mdns => ./third_party/go-mdns
+
+replace github.com/saltosystems/winrt-go => ./third_party/winrt-go
+
+replace github.com/cybergarage/go-safecast => ./third_party/go-safecast
