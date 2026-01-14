@@ -43,6 +43,22 @@ func main() {
 
 詳細は `doc/INSTALL.md` を参照してください。
 
+### 設定ファイル (matterctl.yaml)
+- `matterctl` は設定ファイルを参照し、存在しない場合は **実行ファイルと同階層** に `matterctl.yaml` を自動生成します。
+- 別の場所に置く場合は `--config` でパスを指定してください。
+- discovery を使う場合は `enable-ble` または `enable-mdns` を `true` に設定します。
+
+例: `matterctl.yaml`
+```yaml
+# matterctl configuration
+# Set enable-ble or enable-mdns to true for discovery.
+format: table
+verbose: false
+debug: false
+enable-ble: false
+enable-mdns: true
+```
+
 ### バイナリ運用の考え方 (永続化/配置)
 - 運用では `matterctl` バイナリを固定のパスに配置し、バージョンや再起動手順を明確にします。
   - 例: `/usr/local/bin/matterctl` を標準の配置先として運用。
