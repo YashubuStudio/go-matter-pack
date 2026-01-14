@@ -18,9 +18,10 @@ package mdns
 
 import (
 	"errors"
-	"syscall"
+
+	"golang.org/x/sys/windows"
 )
 
 func isIgnorableStartError(err error) bool {
-	return errors.Is(err, syscall.ERROR_NOT_READY)
+	return errors.Is(err, windows.ERROR_NOT_READY)
 }
