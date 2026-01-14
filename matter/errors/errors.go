@@ -25,6 +25,8 @@ var (
 	ErrNotFound = errors.New("not found")
 	// ErrFailed is returned when an operation fails.
 	ErrFailed = errors.New("failed")
+	// ErrDisabled indicates a feature is disabled.
+	ErrDisabled = errors.New("disabled")
 )
 
 // Is reports whether any error in err's chain matches target.
