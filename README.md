@@ -6,12 +6,14 @@
  [![Go Report Card](https://img.shields.io/badge/go%20report-A%2B-brightgreen)](https://goreportcard.com/report/github.com/cybergarage/go-matter) 
  [![codecov](https://codecov.io/gh/cybergarage/go-matter/graph/badge.svg?token=7Y64KS92VD)](https://codecov.io/gh/cybergarage/go-matter)
 
-# go-matter
+# go-matter-pack
 
 Matter is an open-source connectivity standard for smart home and IoT (Internet of Things) devices.
-`go-matter` is a Go library for develping Matter applications and devices.
+`go-matter-pack` bundles the `go-matter` Go library with the `matterctl` CLI for discovering and commissioning Matter devices.
 
 **Note:** 🌱 This is a spare-time hobby project, so progress may be slow and changes may appear irregular. Thank you for your patience 🙂
+
+**Important:** This repository is a fork of [cybergarage/go-matter](https://github.com/cybergarage/go-matter).
 
 ### Progress Overview
 
@@ -26,6 +28,14 @@ Matter is an open-source connectivity standard for smart home and IoT (Internet 
 |          | `encoding.qr` | ✅ Implemented | QR code generation |
 |          | `encoding.pairing` | ✅ Implemented | Manual pairing code handling |
 |          | `encoding.tlv` | 🚧 In progress | TLV (Tag-Length-Value) encoding |
+
+#### CLI (matterctl)
+
+| Area | Status | Description |
+|------|--------|-------------|
+| Discovery | ✅ Implemented | `matterctl scan` discovers commissionable devices |
+| Pairing | ✅ Implemented | `matterctl pairing` supports pairing by code and Wi-Fi credentials |
+| Setup | ✅ Implemented | `matterctl setup commission` stores onboarding data and can run commissioning |
 
 #### Related Projects
 
