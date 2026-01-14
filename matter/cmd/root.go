@@ -17,6 +17,8 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/cybergarage/go-logger/log"
@@ -33,6 +35,17 @@ var (
 	EnableMDNSParamStr  = "enable-mdns"
 	commissionerStarted = false
 )
+
+const defaultConfigFilename = "matterctl.yaml"
+
+const defaultConfigTemplate = `# matterctl configuration
+# Set enable-ble or enable-mdns to true for discovery.
+format: table
+verbose: false
+debug: false
+enable-ble: false
+enable-mdns: false
+`
 
 var rootCmd = &cobra.Command{ // nolint:exhaustruct
 	Use:               "matterctl",
@@ -63,10 +76,36 @@ func Execute() error {
 func loadConfig() error {
 	configFile := viper.GetString(ConfigParamStr)
 	if configFile == "" {
-		return nil
+		var err error
+		configFile, err = defaultConfigPath()
+		if err != nil {
+			return err
+		}
+	}
+	if err := ensureConfigFile(configFile); err != nil {
+		return err
 	}
 	viper.SetConfigFile(configFile)
 	return viper.ReadInConfig()
+}
+
+func defaultConfigPath() (string, error) {
+	executablePath, err := os.Executable()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(filepath.Dir(executablePath), defaultConfigFilename), nil
+}
+
+func ensureConfigFile(configFile string) error {
+	_, err := os.Stat(configFile)
+	if err == nil {
+		return nil
+	}
+	if !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+	return os.WriteFile(configFile, []byte(defaultConfigTemplate), 0o644)
 }
 
 func configureLogging() {
