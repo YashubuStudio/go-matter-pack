@@ -12,17 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package matter
+//go:build !windows
 
-import (
-	"github.com/cybergarage/go-matter/matter/errors"
-)
+package mdns
 
-var (
-	// ErrNotFound is returned when a requested resource is not found.
-	ErrNotFound = errors.ErrNotFound
-	// ErrFailed is returned when an operation fails.
-	ErrFailed = errors.ErrFailed
-	// ErrDisabled is returned when a feature is disabled.
-	ErrDisabled = errors.ErrDisabled
-)
+func isIgnorableStartError(err error) bool {
+	return false
+}

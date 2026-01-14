@@ -42,7 +42,14 @@ func (disc *discoverer) MessageReceived(msg dns.Message) {
 
 // Start starts this discoverer.
 func (disc *discoverer) Start() error {
-	return disc.Client.Start()
+	if err := disc.Client.Start(); err != nil {
+		if isIgnorableStartError(err) {
+			log.Warnf("mDNS client start skipped: %v", err)
+			return nil
+		}
+		return err
+	}
+	return nil
 }
 
 // Stop stops this discoverer.
@@ -66,6 +73,10 @@ func (disc *discoverer) Search(ctx context.Context, query Query) ([]Commissionab
 
 	services, err := disc.Client.Query(ctx, dnsQuery)
 	if err != nil {
+		if isIgnorableStartError(err) {
+			log.Warnf("mDNS query skipped: %v", err)
+			return []CommissionableNode{}, nil
+		}
 		return []CommissionableNode{}, err
 	}
 

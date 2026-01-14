@@ -17,6 +17,7 @@ package matter
 import (
 	"context"
 	"fmt"
+	"runtime"
 
 	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-matter/matter/ble"
@@ -28,13 +29,54 @@ import (
 type commissioner struct {
 	ble.Central
 	discoverer mdns.Discoverer
+	enableBLE  bool
+	enableMDNS bool
+}
+
+// CommissionerOption represents a configuration option for a commissioner.
+type CommissionerOption func(*commissionerOptions)
+
+type commissionerOptions struct {
+	enableBLE  bool
+	enableMDNS bool
+}
+
+// WithCommissionerBLEEnabled toggles BLE scanning.
+func WithCommissionerBLEEnabled(enabled bool) CommissionerOption {
+	return func(opts *commissionerOptions) {
+		opts.enableBLE = enabled
+	}
+}
+
+// WithCommissionerMDNSEnabled toggles mDNS discovery.
+func WithCommissionerMDNSEnabled(enabled bool) CommissionerOption {
+	return func(opts *commissionerOptions) {
+		opts.enableMDNS = enabled
+	}
 }
 
 // NewCommissioner returns a new commissioner.
 func NewCommissioner() Commissioner {
+	return NewCommissionerWithOptions()
+}
+
+// NewCommissionerWithOptions returns a new commissioner configured with options.
+func NewCommissionerWithOptions(options ...CommissionerOption) Commissioner {
+	opts := commissionerOptions{}
+	for _, apply := range options {
+		apply(&opts)
+	}
+
+	if runtime.GOOS == "windows" && opts.enableBLE {
+		log.Warn("BLE commissioning is disabled on Windows; ignoring enable flag.")
+		opts.enableBLE = false
+	}
+
 	com := &commissioner{
 		Central:    ble.NewCentral(),
 		discoverer: mdns.NewDiscoverer(),
+		enableBLE:  opts.enableBLE,
+		enableMDNS: opts.enableMDNS,
 	}
 	return com
 }
@@ -104,23 +146,31 @@ func (cmr *commissioner) Discover(ctx context.Context, query Query) ([]Commissio
 		err  error
 	}
 
-	// Use a single channel to collect both results symmetrically
-	done := make(chan result, 2)
+	var discoverers []func(context.Context) ([]CommissionableDevice, error)
+	if cmr.enableBLE {
+		discoverers = append(discoverers, scanNodes)
+	}
+	if cmr.enableMDNS {
+		discoverers = append(discoverers, discoverNodes)
+	}
+	if len(discoverers) == 0 {
+		return nil, fmt.Errorf("%w: discovery is disabled (enable BLE or mDNS)", ErrDisabled)
+	}
 
-	go func() {
-		d, e := scanNodes(ctx)
-		done <- result{devs: d, err: e}
-	}()
+	// Use a single channel to collect results symmetrically
+	done := make(chan result, len(discoverers))
 
-	go func() {
-		d, e := discoverNodes(ctx)
-		done <- result{devs: d, err: e}
-	}()
+	for _, discover := range discoverers {
+		go func(fn func(context.Context) ([]CommissionableDevice, error)) {
+			d, e := fn(ctx)
+			done <- result{devs: d, err: e}
+		}(discover)
+	}
 
 	var devs []CommissionableDevice
 
-	// Collect two results; treat timeouts as normal (skip)
-	for range 2 {
+	// Collect results; treat timeouts as normal (skip)
+	for range discoverers {
 		r := <-done
 		if r.err != nil && !errors.Is(r.err, context.DeadlineExceeded) {
 			return nil, r.err
@@ -167,6 +217,9 @@ func (cmr *commissioner) Commission(ctx context.Context, payload OnboardingPaylo
 
 // Start starts the commissioner.
 func (cmr *commissioner) Start() error {
+	if !cmr.enableMDNS {
+		return nil
+	}
 	err := cmr.discoverer.Start()
 	if err != nil {
 		return err
@@ -176,6 +229,9 @@ func (cmr *commissioner) Start() error {
 
 // Stop stops the commissioner.
 func (cmr *commissioner) Stop() error {
+	if !cmr.enableMDNS {
+		return nil
+	}
 	err := cmr.discoverer.Stop()
 	if err != nil {
 		return err

@@ -18,12 +18,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cybergarage/go-matter/matter"
 	"github.com/cybergarage/go-matter/matter/cmd"
 )
 
 func main() {
-	if err := cmd.Execute(matter.NewCommissioner()); err != nil {
+	if err := cmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
