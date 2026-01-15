@@ -17,7 +17,7 @@ package matter
 import (
 	"context"
 
-	"github.com/cybergarage/go-matter/matter/mdns"
+	"github.com/YashubuStudio/go-matter-pack/matter/mdns"
 )
 
 type mDNSDevice struct {

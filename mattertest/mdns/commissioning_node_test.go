@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/cybergarage/go-logger/log/hexdump"
-	"github.com/cybergarage/go-matter/matter/mdns"
+	"github.com/YashubuStudio/go-matter-pack/matter/mdns"
 	"github.com/cybergarage/go-mdns/mdns/dns"
 )
 

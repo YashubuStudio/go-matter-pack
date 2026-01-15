@@ -15,7 +15,7 @@
 package pase
 
 import (
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 // Session represents a PASE session.

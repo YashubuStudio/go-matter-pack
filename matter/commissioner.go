@@ -19,8 +19,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/cybergarage/go-matter/matter/ble"
-	"github.com/cybergarage/go-matter/matter/mdns"
+	"github.com/YashubuStudio/go-matter-pack/matter/ble"
+	"github.com/YashubuStudio/go-matter-pack/matter/mdns"
 )
 
 const (

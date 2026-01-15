@@ -3,7 +3,7 @@ package store
 import (
 	"time"
 
-	"github.com/cybergarage/go-matter/internal/mattermodel"
+	"github.com/YashubuStudio/go-matter-pack/internal/mattermodel"
 )
 
 // Registry holds stable device identifiers keyed by UniqueID.

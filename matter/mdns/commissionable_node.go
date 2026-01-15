@@ -18,7 +18,7 @@ import (
 	"net"
 	"regexp"
 
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 )
 
 // HostnameRegexp is the regular expression to validate host names.

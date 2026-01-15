@@ -19,8 +19,8 @@ import (
 	"sync"
 
 	"github.com/cybergarage/go-ble/ble"
-	"github.com/cybergarage/go-matter/matter/errors"
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/errors"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 )
 
 type scanner struct {

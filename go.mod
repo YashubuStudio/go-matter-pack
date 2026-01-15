@@ -1,4 +1,4 @@
-module github.com/cybergarage/go-matter
+module github.com/YashubuStudio/go-matter-pack
 
 go 1.25.5
 

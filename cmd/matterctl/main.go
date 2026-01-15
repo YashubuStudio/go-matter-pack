@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cybergarage/go-matter/matter/cmd"
+	"github.com/YashubuStudio/go-matter-pack/matter/cmd"
 )
 
 func main() {

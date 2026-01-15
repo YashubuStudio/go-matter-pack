@@ -29,7 +29,7 @@ endif
 GOBIN := $(shell go env GOPATH)/bin
 PATH := $(GOBIN):$(PATH)
 
-MODULE_ROOT=github.com/cybergarage/go-matter
+MODULE_ROOT=github.com/YashubuStudio/go-matter-pack
 
 PKG_NAME=matter
 PKG_VER=$(shell git describe --abbrev=0 --tags)

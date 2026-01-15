@@ -18,7 +18,7 @@ import (
 	"context"
 
 	"github.com/cybergarage/go-ble/ble"
-	"github.com/cybergarage/go-matter/matter/ble/btp"
+	"github.com/YashubuStudio/go-matter-pack/matter/ble/btp"
 )
 
 // Transport represents a BLE transport.

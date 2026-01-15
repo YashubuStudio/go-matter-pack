@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cybergarage/go-matter/matter/errors"
+	"github.com/YashubuStudio/go-matter-pack/matter/errors"
 )
 
 // HandshakeRequest represents a BTP handshake request.

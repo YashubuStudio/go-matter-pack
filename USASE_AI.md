@@ -5,7 +5,7 @@
 ## 1. このリポジトリの提供物
 
 - **Go ライブラリ**: Matter デバイスの発見・コミッショニング等を扱うライブラリ。
-  - モジュールパス: `github.com/cybergarage/go-matter`
+  - モジュールパス: `github.com/YashubuStudio/go-matter-pack`
 - **CLI**: `matterctl`（Matter デバイス操作用）
   - エントリーポイント: `cmd/matterctl`
 
@@ -23,7 +23,7 @@
 
 ### 3.1 Go モジュールとして利用
 ```bash
-go get github.com/cybergarage/go-matter
+go get github.com/YashubuStudio/go-matter-pack
 ```
 
 ### 3.2 CLI ビルド
@@ -54,7 +54,7 @@ import (
     "context"
     "log"
 
-    "github.com/cybergarage/go-matter/matter"
+    "github.com/YashubuStudio/go-matter-pack/matter"
 )
 
 func main() {
@@ -77,7 +77,7 @@ package main
 import (
     "log"
 
-    "github.com/cybergarage/go-matter/matter/encoding"
+    "github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 func main() {
@@ -103,8 +103,8 @@ import (
     "context"
     "log"
 
-    "github.com/cybergarage/go-matter/matter"
-    "github.com/cybergarage/go-matter/matter/encoding"
+    "github.com/YashubuStudio/go-matter-pack/matter"
+    "github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 func main() {
@@ -179,9 +179,9 @@ import (
     "log"
     "path/filepath"
 
-    "github.com/cybergarage/go-matter/internal/app"
-    "github.com/cybergarage/go-matter/internal/commission"
-    "github.com/cybergarage/go-matter/internal/store"
+    "github.com/YashubuStudio/go-matter-pack/internal/app"
+    "github.com/YashubuStudio/go-matter-pack/internal/commission"
+    "github.com/YashubuStudio/go-matter-pack/internal/store"
 )
 
 func main() {

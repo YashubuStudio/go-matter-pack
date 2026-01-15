@@ -19,7 +19,7 @@ import (
 	"fmt"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/matter/ble"
+	"github.com/YashubuStudio/go-matter-pack/matter/ble"
 )
 
 type bleDevice struct {

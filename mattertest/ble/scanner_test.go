@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/matter/ble"
+	"github.com/YashubuStudio/go-matter-pack/matter/ble"
 )
 
 func TestScanner(t *testing.T) {

@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/matter/mdns"
+	"github.com/YashubuStudio/go-matter-pack/matter/mdns"
 )
 
 func TestDiscoverer(t *testing.T) {

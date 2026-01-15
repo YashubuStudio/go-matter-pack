@@ -18,7 +18,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 	"github.com/cybergarage/go-mdns/mdns"
 	"github.com/cybergarage/go-mdns/mdns/dns"
 )

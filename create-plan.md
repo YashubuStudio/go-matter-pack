@@ -305,6 +305,6 @@ type MetricReader interface {
 * **電池などの定期取得**：Power Source の BatPercentRemaining などを読める（機種差はフォールバックで吸収）([Matter Survey][5])
 
 ---
-[3]: https://github.com/cybergarage/go-matter?utm_source=chatgpt.com "cybergarage/go-matter"
+[3]: https://github.com/YashubuStudio/go-matter-pack?utm_source=chatgpt.com "cybergarage/go-matter"
 [4]: https://csa-iot.org/wp-content/uploads/2023/10/Matter-1.2-Application-Cluster-Specification.pdf?utm_source=chatgpt.com "Matter Application Cluster Specification Version 1.2"
 [5]: https://www.matter-survey.org/cluster/0x002F "Power Source - Matter Survey"

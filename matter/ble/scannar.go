@@ -17,7 +17,7 @@ package ble
 import (
 	"context"
 
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 // OnboardingPayload defines the common onboarding payload fields.

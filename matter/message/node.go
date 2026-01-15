@@ -15,7 +15,7 @@
 package message
 
 import (
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 )
 
 // NodeID represents a node ID.

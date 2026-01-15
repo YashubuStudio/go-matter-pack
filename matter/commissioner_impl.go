@@ -21,9 +21,9 @@ import (
 	"runtime"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/matter/ble"
-	"github.com/cybergarage/go-matter/matter/errors"
-	"github.com/cybergarage/go-matter/matter/mdns"
+	"github.com/YashubuStudio/go-matter-pack/matter/ble"
+	"github.com/YashubuStudio/go-matter-pack/matter/errors"
+	"github.com/YashubuStudio/go-matter-pack/matter/mdns"
 )
 
 // commissioner represents a commissioner.

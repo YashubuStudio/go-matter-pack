@@ -17,7 +17,7 @@ package message
 import (
 	"io"
 
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 // Header represents a message header.
