@@ -76,6 +76,9 @@ enable-mdns: true
   - `matterctl setup commission --code <pairing code> --node-id <node ID>`
   - `--import-only` を付けると保存のみを実行
   - `--state-dir` で保存ディレクトリを明示指定 (省略時は XDG の state ディレクトリを利用)
+- `matterctl onoff` : ブリッジ配下の On/Off デバイスを操作
+  - `matterctl onoff on <unique id>` / `off <unique id>` / `toggle <unique id>`
+  - `matterctl onoff status <unique id>` : 現在の On/Off 状態を取得
 
 ### IP で登録する手順 (オンネットワーク)
 1. `matterctl.yaml` はデフォルト値のまま利用します (必要な指定はコマンドラインで行います)。
@@ -93,6 +96,13 @@ matterctl setup commission --code <pairing code> --node-id <node ID> --address <
 3. 保存だけを行う場合は `--import-only` を付けます (IP 指定の有無に関係なく利用可能)。
 
 詳細なフラグや出力形式は `doc/matterctl.md` のヘルプを参照してください。
+
+### On/Off 操作用の状態ファイル
+- `matterctl onoff` は **台帳ファイル (`registry.json`)** を読み込み、対象デバイスの `unique id`/エンドポイント/Hub Node ID を参照します。
+- `registry.json` は `--state-dir` で指定したディレクトリに置きます (省略時は XDG の state ディレクトリ)。
+- 例: `~/.local/state/go-matter-pack/registry.json`
+
+`registry.json` に記録される `unique id` が `matterctl onoff` の引数になります。
 
 ## Matter の永続化/保存設計 (バイナリと接続情報)
 
