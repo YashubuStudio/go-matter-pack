@@ -17,6 +17,7 @@ package cmd
 import (
 	"context"
 	"encoding/json"
+	"net"
 	"os"
 	"strconv"
 	"strings"
@@ -53,9 +54,11 @@ var scanCmd = &cobra.Command{ // nolint:exhaustruct
 			return nil
 		}
 
-		columns := []string{"Name", "Addr", "VendorID", "ProductID", "Discriminator"}
+		columns := []string{"Name", "Address", "VendorID", "ProductID", "Discriminator"}
 		deviceColumns := func(dev matter.CommissionableDevice) ([]string, error) {
 			return []string{
+				deviceName(dev),
+				deviceAddress(dev),
 				strconv.Itoa(int(dev.VendorID())),
 				strconv.Itoa(int(dev.ProductID())),
 				strconv.Itoa(int(dev.Discriminator())),
@@ -128,4 +131,62 @@ var scanCmd = &cobra.Command{ // nolint:exhaustruct
 			return printDevicesTable(devs)
 		}
 	},
+}
+
+type deviceNameProvider interface {
+	DeviceName() (string, bool)
+}
+
+type hostnameProvider interface {
+	Hostname() (string, bool)
+}
+
+type addressProvider interface {
+	Addresses() ([]net.IP, bool)
+	Port() (int, bool)
+}
+
+func deviceName(dev matter.CommissionableDevice) string {
+	if dev == nil {
+		return ""
+	}
+	if provider, ok := dev.(deviceNameProvider); ok {
+		if name, ok := provider.DeviceName(); ok {
+			return name
+		}
+	}
+	if provider, ok := dev.(hostnameProvider); ok {
+		if name, ok := provider.Hostname(); ok {
+			return name
+		}
+	}
+	return ""
+}
+
+func deviceAddress(dev matter.CommissionableDevice) string {
+	if dev == nil {
+		return ""
+	}
+	provider, ok := dev.(addressProvider)
+	if !ok {
+		return ""
+	}
+	addrs, ok := provider.Addresses()
+	if !ok || len(addrs) == 0 {
+		return ""
+	}
+	port, _ := provider.Port()
+	formatted := make([]string, 0, len(addrs))
+	for _, addr := range addrs {
+		if addr == nil {
+			continue
+		}
+		host := addr.String()
+		if port > 0 {
+			formatted = append(formatted, net.JoinHostPort(host, strconv.Itoa(port)))
+		} else {
+			formatted = append(formatted, host)
+		}
+	}
+	return strings.Join(formatted, " ")
 }
