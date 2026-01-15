@@ -47,6 +47,7 @@ func main() {
 - `matterctl` は設定ファイルを参照し、存在しない場合は **実行ファイルと同階層** に `matterctl.yaml` を自動生成します。
 - 別の場所に置く場合は `--config` でパスを指定してください。
 - discovery を使う場合は `enable-ble` または `enable-mdns` を `true` に設定します。
+- 設定ファイルはデフォルト値のまま利用し、必要な指定はコマンドラインで行います。コマンドラインの指定が設定ファイルより優先されます。
 
 例: `matterctl.yaml`
 ```yaml
@@ -75,6 +76,21 @@ enable-mdns: true
   - `matterctl setup commission --code <pairing code> --node-id <node ID>`
   - `--import-only` を付けると保存のみを実行
   - `--state-dir` で保存ディレクトリを明示指定 (省略時は XDG の state ディレクトリを利用)
+
+### IP で登録する手順 (オンネットワーク)
+1. `matterctl.yaml` はデフォルト値のまま利用します (必要な指定はコマンドラインで行います)。
+2. コミッショニング時に `--address` を指定して対象 IP に直接接続します。
+   - IP だけ指定した場合はデフォルトポート (5540) を利用します。
+
+```bash
+# QR ペイロードを使う場合
+matterctl setup commission --qr <payload> --node-id <node ID> --address <ip>
+
+# 手動ペアリングコードを使う場合 (IP:ポート指定も可)
+matterctl setup commission --code <pairing code> --node-id <node ID> --address <ip:port>
+```
+
+3. 保存だけを行う場合は `--import-only` を付けます (IP 指定の有無に関係なく利用可能)。
 
 詳細なフラグや出力形式は `doc/matterctl.md` のヘルプを参照してください。
 
