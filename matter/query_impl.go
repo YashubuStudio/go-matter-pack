@@ -14,8 +14,15 @@
 
 package matter
 
+import (
+	"fmt"
+	"net"
+)
+
 type query struct {
-	payload OnboardingPayload
+	payload          OnboardingPayload
+	onNetworkAddress net.IP
+	onNetworkPort    int
 }
 
 // QueryOption represents an option for creating a Query.
@@ -25,6 +32,14 @@ type QueryOption func(*query)
 func WithQueryOnboardingPayload(payload OnboardingPayload) QueryOption {
 	return func(q *query) {
 		q.payload = payload
+	}
+}
+
+// WithQueryOnNetworkAddress sets the on-network address for the query.
+func WithQueryOnNetworkAddress(address net.IP, port int) QueryOption {
+	return func(q *query) {
+		q.onNetworkAddress = address
+		q.onNetworkPort = port
 	}
 }
 
@@ -47,10 +62,25 @@ func (q *query) OnboardingPayload() (OnboardingPayload, bool) {
 	return q.payload, true
 }
 
+// OnNetworkAddress returns the on-network address of the query.
+func (q *query) OnNetworkAddress() (net.IP, int, bool) {
+	if q.onNetworkAddress == nil {
+		return nil, 0, false
+	}
+	return q.onNetworkAddress, q.onNetworkPort, true
+}
+
 // String returns the string representation of the query.
 func (q *query) String() string {
+	var base string
 	if q.payload != nil {
-		return q.payload.String()
+		base = q.payload.String()
 	}
-	return ""
+	if q.onNetworkAddress == nil {
+		return base
+	}
+	if base == "" {
+		return net.JoinHostPort(q.onNetworkAddress.String(), fmt.Sprintf("%d", q.onNetworkPort))
+	}
+	return fmt.Sprintf("%s@%s:%d", base, q.onNetworkAddress.String(), q.onNetworkPort)
 }

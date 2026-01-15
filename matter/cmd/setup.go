@@ -17,13 +17,19 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"net"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
 	"github.com/cybergarage/go-matter/internal/app"
+	"github.com/cybergarage/go-matter/internal/commission"
 	"github.com/cybergarage/go-matter/internal/store"
 	"github.com/cybergarage/go-matter/internal/usecase"
+	"github.com/cybergarage/go-matter/matter"
+	"github.com/cybergarage/go-matter/matter/mdns"
 	"github.com/spf13/cobra"
 )
 
@@ -39,6 +45,7 @@ func init() {
 	setupCommissionCmd.Flags().String("state-dir", "", "state directory (defaults to XDG state home)")
 	setupCommissionCmd.Flags().Duration("timeout", 30*time.Second, "commissioning timeout")
 	setupCommissionCmd.Flags().Bool("import-only", false, "only store onboarding payload without commissioning")
+	setupCommissionCmd.Flags().String("address", "", "on-network device address (ip or ip:port)")
 }
 
 var setupCmd = &cobra.Command{ // nolint:exhaustruct
@@ -78,6 +85,10 @@ var setupCommissionCmd = &cobra.Command{ // nolint:exhaustruct
 		if err != nil {
 			return err
 		}
+		address, err := cmd.Flags().GetString("address")
+		if err != nil {
+			return err
+		}
 
 		payload := codePayload
 		if qrPayload != "" {
@@ -100,7 +111,18 @@ var setupCommissionCmd = &cobra.Command{ // nolint:exhaustruct
 
 		ctx, cancel := context.WithTimeout(context.Background(), timeout)
 		defer cancel()
-		state, commissionee, err := service.Commission(ctx, nodeID, payload)
+		ip, port, err := parseOnNetworkAddress(address)
+		if err != nil {
+			return err
+		}
+
+		var state commission.State
+		var commissionee matter.Commissionee
+		if ip != nil {
+			state, commissionee, err = service.CommissionOnNetwork(ctx, nodeID, payload, ip, port)
+		} else {
+			state, commissionee, err = service.Commission(ctx, nodeID, payload)
+		}
 		if err != nil {
 			return err
 		}
@@ -110,4 +132,27 @@ var setupCommissionCmd = &cobra.Command{ // nolint:exhaustruct
 		}
 		return nil
 	},
+}
+
+func parseOnNetworkAddress(address string) (net.IP, int, error) {
+	address = strings.TrimSpace(address)
+	if address == "" {
+		return nil, 0, nil
+	}
+	if ip := net.ParseIP(address); ip != nil {
+		return ip, mdns.Port, nil
+	}
+	host, portStr, err := net.SplitHostPort(address)
+	if err != nil {
+		return nil, 0, err
+	}
+	ip := net.ParseIP(host)
+	if ip == nil {
+		return nil, 0, fmt.Errorf("invalid IP address: %s", host)
+	}
+	port, err := strconv.Atoi(portStr)
+	if err != nil || port <= 0 {
+		return nil, 0, fmt.Errorf("invalid port: %s", portStr)
+	}
+	return ip, port, nil
 }

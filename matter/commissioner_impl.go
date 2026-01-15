@@ -17,6 +17,7 @@ package matter
 import (
 	"context"
 	"fmt"
+	"net"
 	"runtime"
 
 	"github.com/cybergarage/go-logger/log"
@@ -98,6 +99,17 @@ func (cmr *commissioner) Discover(ctx context.Context, query Query) ([]Commissio
 		var cancel context.CancelFunc
 		ctx, cancel = context.WithTimeout(ctx, DefaultDiscoveryTimeout)
 		defer cancel()
+	}
+
+	if addr, port, ok := onNetworkAddress(query); ok {
+		payload, ok := query.OnboardingPayload()
+		if !ok {
+			return nil, fmt.Errorf("%w: onboarding payload required for on-network commissioning", errors.ErrInvalid)
+		}
+		if port <= 0 {
+			port = mdns.Port
+		}
+		return []CommissionableDevice{newOnNetworkDevice(addr, port, payload)}, nil
 	}
 
 	scanNodes := func(ctx context.Context) ([]CommissionableDevice, error) {
@@ -186,6 +198,19 @@ func (cmr *commissioner) Commission(ctx context.Context, payload OnboardingPaylo
 	query := NewQuery(
 		WithQueryOnboardingPayload(payload),
 	)
+	return cmr.commissionWithQuery(ctx, payload, query)
+}
+
+// CommissionOnNetwork commissions a device with a direct on-network address.
+func (cmr *commissioner) CommissionOnNetwork(ctx context.Context, payload OnboardingPayload, address net.IP, port int) (Commissionee, error) {
+	query := NewQuery(
+		WithQueryOnboardingPayload(payload),
+		WithQueryOnNetworkAddress(address, port),
+	)
+	return cmr.commissionWithQuery(ctx, payload, query)
+}
+
+func (cmr *commissioner) commissionWithQuery(ctx context.Context, payload OnboardingPayload, query Query) (Commissionee, error) {
 	devs, err := cmr.Discover(ctx, query)
 	if err != nil {
 		return nil, err
@@ -237,4 +262,15 @@ func (cmr *commissioner) Stop() error {
 		return err
 	}
 	return nil
+}
+
+func onNetworkAddress(query Query) (net.IP, int, bool) {
+	type onNetworkQuery interface {
+		OnNetworkAddress() (net.IP, int, bool)
+	}
+	q, ok := query.(onNetworkQuery)
+	if !ok {
+		return nil, 0, false
+	}
+	return q.OnNetworkAddress()
 }
