@@ -21,8 +21,8 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/matter"
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 func TestCommissioner(t *testing.T) {

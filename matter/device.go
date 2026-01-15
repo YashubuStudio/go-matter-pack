@@ -17,8 +17,8 @@ package matter
 import (
 	"context"
 
-	"github.com/cybergarage/go-matter/matter/encoding"
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 )
 
 // Discriminator represents a discriminator.

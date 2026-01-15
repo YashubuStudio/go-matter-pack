@@ -24,12 +24,12 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/internal/app"
-	"github.com/cybergarage/go-matter/internal/commission"
-	"github.com/cybergarage/go-matter/internal/store"
-	"github.com/cybergarage/go-matter/internal/usecase"
-	"github.com/cybergarage/go-matter/matter"
-	"github.com/cybergarage/go-matter/matter/mdns"
+	"github.com/YashubuStudio/go-matter-pack/internal/app"
+	"github.com/YashubuStudio/go-matter-pack/internal/commission"
+	"github.com/YashubuStudio/go-matter-pack/internal/store"
+	"github.com/YashubuStudio/go-matter-pack/internal/usecase"
+	"github.com/YashubuStudio/go-matter-pack/matter"
+	"github.com/YashubuStudio/go-matter-pack/matter/mdns"
 	"github.com/spf13/cobra"
 )
 

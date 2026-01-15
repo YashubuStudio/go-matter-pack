@@ -7,7 +7,7 @@
 
 ### 追加
 ```bash
-go get github.com/cybergarage/go-matter
+go get github.com/YashubuStudio/go-matter-pack
 ```
 
 ### デバイス検索 (Discover)
@@ -18,7 +18,7 @@ import (
     "context"
     "log"
 
-    "github.com/cybergarage/go-matter/matter"
+    "github.com/YashubuStudio/go-matter-pack/matter"
 )
 
 func main() {
@@ -131,9 +131,9 @@ import (
     "log"
     "path/filepath"
 
-    "github.com/cybergarage/go-matter/internal/app"
-    "github.com/cybergarage/go-matter/internal/commission"
-    "github.com/cybergarage/go-matter/internal/store"
+    "github.com/YashubuStudio/go-matter-pack/internal/app"
+    "github.com/YashubuStudio/go-matter-pack/internal/commission"
+    "github.com/YashubuStudio/go-matter-pack/internal/store"
 )
 
 func main() {
@@ -159,7 +159,7 @@ package main
 import (
     "log"
 
-    "github.com/cybergarage/go-matter/matter/encoding"
+    "github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 func main() {
@@ -180,7 +180,7 @@ import (
     "context"
     "log"
 
-    "github.com/cybergarage/go-matter/matter"
+    "github.com/YashubuStudio/go-matter-pack/matter"
 )
 
 func main() {
@@ -205,8 +205,8 @@ import (
     "context"
     "log"
 
-    "github.com/cybergarage/go-matter/matter"
-    "github.com/cybergarage/go-matter/matter/encoding"
+    "github.com/YashubuStudio/go-matter-pack/matter"
+    "github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 func main() {

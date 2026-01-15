@@ -7,9 +7,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/cybergarage/go-matter/internal/commission"
-	"github.com/cybergarage/go-matter/internal/store"
-	"github.com/cybergarage/go-matter/matter"
+	"github.com/YashubuStudio/go-matter-pack/internal/commission"
+	"github.com/YashubuStudio/go-matter-pack/internal/store"
+	"github.com/YashubuStudio/go-matter-pack/matter"
 )
 
 // CommissionService handles onboarding payload import and commissioning.

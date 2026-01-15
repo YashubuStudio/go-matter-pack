@@ -17,7 +17,7 @@ package mdns
 import (
 	"fmt"
 
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 	"github.com/cybergarage/go-mdns/mdns"
 	"github.com/cybergarage/go-mdns/mdns/dns"
 )

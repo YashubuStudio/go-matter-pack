@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-logger/log"
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 	"github.com/spf13/cobra"
 )
 

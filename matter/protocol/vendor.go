@@ -15,7 +15,7 @@
 package protocol
 
 import (
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 )
 
 // VendorID represents a vendor ID.

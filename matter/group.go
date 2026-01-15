@@ -14,7 +14,7 @@
 
 package matter
 
-import "github.com/cybergarage/go-matter/matter/types"
+import "github.com/YashubuStudio/go-matter-pack/matter/types"
 
 // GroupID represents a group ID.
 // 2.5.4. Group Identifier (GID).

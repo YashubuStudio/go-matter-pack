@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cybergarage/go-matter/internal/store"
-	"github.com/cybergarage/go-matter/matter/encoding"
+	"github.com/YashubuStudio/go-matter-pack/internal/store"
+	"github.com/YashubuStudio/go-matter-pack/matter/encoding"
 )
 
 // PayloadRecord stores onboarding payload details for commissioning.

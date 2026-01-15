@@ -15,7 +15,7 @@
 package matter
 
 import (
-	"github.com/cybergarage/go-matter/matter/errors"
+	"github.com/YashubuStudio/go-matter-pack/matter/errors"
 )
 
 var (

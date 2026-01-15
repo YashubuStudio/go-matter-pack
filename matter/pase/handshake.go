@@ -18,8 +18,8 @@ import (
 	"crypto/sha256"
 	"hash"
 
-	"github.com/cybergarage/go-matter/matter/crypto/pake/spake2p"
-	"github.com/cybergarage/go-matter/matter/crypto/pbkdf"
+	"github.com/YashubuStudio/go-matter-pack/matter/crypto/pake/spake2p"
+	"github.com/YashubuStudio/go-matter-pack/matter/crypto/pbkdf"
 )
 
 // HandshakeRole represents the role in the PASE handshake.

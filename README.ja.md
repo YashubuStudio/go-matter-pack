@@ -1,9 +1,9 @@
 ![](https://img.shields.io/badge/status-Work%20In%20Progress-8A2BE2)
 ![](https://workers-hub.zoom.us/j/89428436853?pwd=Qm41UHlJNW1LazN3RFVzV1dwM09udz09&from=addon)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cybergarage/go-matter)
-[![test](https://github.com/cybergarage/go-matter/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/go-matter/actions/workflows/make.yml)
-[![Go Reference](https://pkg.go.dev/badge/github.com/cybergarage/go-matter.svg)](https://pkg.go.dev/github.com/cybergarage/go-matter)
- [![Go Report Card](https://img.shields.io/badge/go%20report-A%2B-brightgreen)](https://goreportcard.com/report/github.com/cybergarage/go-matter) 
+[![test](https://github.com/YashubuStudio/go-matter-pack/actions/workflows/make.yml/badge.svg)](https://github.com/YashubuStudio/go-matter-pack/actions/workflows/make.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/YashubuStudio/go-matter-pack.svg)](https://pkg.go.dev/github.com/YashubuStudio/go-matter-pack)
+ [![Go Report Card](https://img.shields.io/badge/go%20report-A%2B-brightgreen)](https://goreportcard.com/report/github.com/YashubuStudio/go-matter-pack) 
  [![codecov](https://codecov.io/gh/cybergarage/go-matter/graph/badge.svg?token=7Y64KS92VD)](https://codecov.io/gh/cybergarage/go-matter)
 
 # go-matter
@@ -13,7 +13,7 @@ Matter はスマートホームおよび IoT（Internet of Things）デバイス
 
 **注記:** 🌱 このプロジェクトは余暇ベースの趣味プロジェクトのため、進捗は緩やかで変更は不定期になる場合があります。ご了承ください 🙂
 
-**重要:** このリポジトリは [cybergarage/go-matter](https://github.com/cybergarage/go-matter) のフォークです。
+**重要:** このリポジトリは [cybergarage/go-matter](https://github.com/YashubuStudio/go-matter-pack) のフォークです。
 
 ### 進捗概要
 
@@ -49,7 +49,7 @@ Matter はスマートホームおよび IoT（Internet of Things）デバイス
 `go-matter` は Go モジュールとしてアプリケーションに組み込めます。
 
 ```bash
-go get github.com/cybergarage/go-matter
+go get github.com/YashubuStudio/go-matter-pack
 ```
 
 ```go
@@ -59,7 +59,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/cybergarage/go-matter/matter"
+	"github.com/YashubuStudio/go-matter-pack/matter"
 )
 
 func main() {

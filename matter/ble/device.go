@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/cybergarage/go-ble/ble"
-	"github.com/cybergarage/go-matter/matter/errors"
+	"github.com/YashubuStudio/go-matter-pack/matter/errors"
 )
 
 // Manufacturer represents a Bluetooth manufacturer.

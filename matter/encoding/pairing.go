@@ -20,7 +20,7 @@ import (
 	"strconv"
 	"unicode"
 
-	"github.com/cybergarage/go-matter/matter/types"
+	"github.com/YashubuStudio/go-matter-pack/matter/types"
 )
 
 // PairingCode represents a Matter manual pairing code.
