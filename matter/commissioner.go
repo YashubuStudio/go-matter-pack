@@ -16,6 +16,7 @@ package matter
 
 import (
 	"context"
+	"net"
 	"time"
 
 	"github.com/cybergarage/go-matter/matter/ble"
@@ -44,4 +45,11 @@ type Commissioner interface {
 	Start() error
 	// Stop stops the commissioner.
 	Stop() error
+}
+
+// OnNetworkCommissioner represents a commissioner capable of direct on-network commissioning.
+type OnNetworkCommissioner interface {
+	Commissioner
+	// CommissionOnNetwork commissions a device with the given onboarding payload and on-network address.
+	CommissionOnNetwork(ctx context.Context, payload OnboardingPayload, address net.IP, port int) (Commissionee, error)
 }

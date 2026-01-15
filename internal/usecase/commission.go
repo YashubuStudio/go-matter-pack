@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
 	"time"
 
 	"github.com/cybergarage/go-matter/internal/commission"
@@ -56,6 +57,55 @@ func (s *CommissionService) Commission(ctx context.Context, nodeID uint64, paylo
 	}
 
 	commissionee, err := s.commissioner.Commission(ctx, onboarding)
+	if err != nil {
+		return state, nil, err
+	}
+
+	result := commission.ResultRecord{
+		NodeID:             nodeID,
+		VendorID:           uint16(commissionee.VendorID()),
+		ProductID:          uint16(commissionee.ProductID()),
+		Device:             commissionee.String(),
+		CommissionedAt:     time.Now().UTC(),
+		PayloadFingerprint: payloadFingerprint(state),
+	}
+	updated, err := commission.UpdateResult(ctx, s.store, result)
+	if err != nil {
+		return state, commissionee, fmt.Errorf("commissioned but failed to update state: %w", err)
+	}
+	return updated, commissionee, nil
+}
+
+// CommissionOnNetwork commissions a device by direct on-network address and updates the commissioning result.
+func (s *CommissionService) CommissionOnNetwork(ctx context.Context, nodeID uint64, payload string, address net.IP, port int) (commission.State, matter.Commissionee, error) {
+	if s == nil {
+		return commission.State{}, nil, errors.New("commission service is nil")
+	}
+	if s.store == nil {
+		return commission.State{}, nil, errors.New("store is nil")
+	}
+	if s.commissioner == nil {
+		return commission.State{}, nil, errors.New("commissioner is nil")
+	}
+	if address == nil {
+		return commission.State{}, nil, errors.New("on-network address is required")
+	}
+
+	onboarding, _, err := commission.ParseOnboardingPayload(payload)
+	if err != nil {
+		return commission.State{}, nil, err
+	}
+
+	state, err := commission.ImportPayload(ctx, s.store, nodeID, payload)
+	if err != nil {
+		return commission.State{}, nil, err
+	}
+
+	onNetworkCommissioner, ok := s.commissioner.(matter.OnNetworkCommissioner)
+	if !ok {
+		return state, nil, errors.New("commissioner does not support on-network commissioning")
+	}
+	commissionee, err := onNetworkCommissioner.CommissionOnNetwork(ctx, onboarding, address, port)
 	if err != nil {
 		return state, nil, err
 	}
